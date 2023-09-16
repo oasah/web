@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'PyeongChangPeace-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+body {
+    font-family: 'PyeongChangPeace-Bold';
+    background-image: url(./bg.jpg);
+    background-size: cover;
+}
+
+#name-modal{
+    width: 400px;
+    height: 200px;
+    background-color: #F0F0F0;
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /*모달창을 중앙에 위치*/
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
