@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포춘쿠키 운세 사이트</title>
+    <!-- CSS 파일 연결 -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+    <div id="container">
+        <!-- 이름을 물어보는 모달창 만들기-->
+        <div id="name-modal">
+            <h3>이름을 입력해주세요</h3>
+            <input type="text" name="" id="username">
+            <input type="button" value="확인" onclick="getUsername()">
+        </div>
+
+        <!--세부 컨텐츠(인사말, 포춘 쿠키 이미지, 운세 결과)-->
+        <div id="contents" class="hide">
+            <!--인사말 만들기-->
+            <div class="greeting">
+                <h2><span id="name"></span>님 환영합니다.</h2>
+                <h2>오늘의 운세를 확인하기 위해 포춘쿠키를 선택해주세요.</h2>
+            </div>
+            <!--포춘쿠키 이미지 넣기-->
+            <div id="box-container">
+                <div class="box">
+                    <img 
+                        src="./fortune-cookie-before.png"
+                        alt="포춘쿠키"
+                        onclick="selectCookie(1)"
+                    >
+                </div>
+                <div class="box">
+                    <img 
+                        src="./fortune-cookie-before.png" 
+                        alt="포춘쿠키"
+                        onclick="selectCookie(2)"
+                    >
+                </div>
+                <div class="box">
+                    <img 
+                        src="./fortune-cookie-before.png" 
+                        alt="포춘쿠키"
+                        onclick="selectCookie(3)"
+                    >
+                </div>
+            </div>
+            <!--포춘쿠키 운세 결과 보여주기-->
+            <div id="result-message">운세 결과 메시지 창입니다.</div>
+        </div>
+    </div>
+    <!--자바스크립트 코드-->
+    <script>
+        function getUsername() {
+            const input = document.getElementById('username')
+            console.log(input.value) //input text 요소에 작성한 이름가져오기
+            const username = input.value
+            if(username.length == 0) {
+                //만약에 사용자가 이름을 입력하지 않았다면
+                //경고창 띄우기
+                window.alert('이름을 입력해주세요!')
+            } else {
+                const span = document.getElementById("name")
+                span.innerText = username //span 태그 안에 사용자 이름 넣기
+               
+                const modal = document.getElementById("name-modal")
+                const contents = document.getElementById("contents")
+                //modal에 hide 클래스 속성 넣기
+                modal.classList.add('hide')
+                //contents에 hide 클래스 속성 삭제하기
+                contents.classList.remove('hide')
+
+            }
+        }
+
+        //포춘쿠키가 선택되었는지 확인하는 리스트 
+        const selected = [false, false, false]
+        function selectCookie(number) {
+            //선택되지 않았을때
+            if(selected[number-1] == false) {
+                //window, console, document, event => 자바스크립에서 제공해주는 객체
+                const target = event.target 
+                //target은 img 태그이므로 이미지가 있는 위치인 src 속성에 접근할 수 있다
+                target.src = "./fortune-cookie-after.png"
+                //포춘쿠키가 선택되었다는 표시하기
+                selected[number-1] = true 
+                //운세 메세지 보여주기 
+                showMessage()
+            } else {
+                window.alert('이미 선택된 쿠키입니다!!')
+            }
+         
+        }
+
+        //운세 결과를 메시지창에 띄워주기
+        const messages = [
+            '시도하지 않으면 아무것도 얻을 수 없습니다! 용기를 갖고 시도하세요',
+            '다음 생은 없어요. 하고 싶은 일을 하세요!',
+            '현명한 소비가 필요할때입니다. 불필요한 지출이 없도록 자신의 소비습관을 확인하세요.',
+            '먼저 행동을 하기 전에 한 번 더 생각하는 자세가 필요합니다.',
+            '오랜만에 일상에 평화가 찾아오니 모든 게 원하는 방향으로 이루어집니다.',
+            '동료나 친구의 단점만 바라보지 말고 가급적이면 장점만 보는 것이 필요합니다',
+            '천천히 달성할 수 있는 일이있다면 걱정말고 차근차근 해나가세요. 좋은 결과가 따릅니다'
+        ]
+        function showMessage(){
+            const result = document.getElementById("result-message")
+            //랜덤한 인덱스를 반환해준다. 
+            let idx = getRandomInt(0,messages.length) //len(messages)
+            //운세 결과 창에 랜덤한 운세 메시지를 넣어준다.
+            result.innerText = messages[idx]
+        }
+        //두 정수 사이의 랜덤한 값을 반환해주는 함수 
+        //참고 : https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+        }
+
+
+       
+    </script>
+</body>
+</html>
